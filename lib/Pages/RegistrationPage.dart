@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/Pages/initialPage.dart';
+import 'package:untitled/Pages/InitialPage.dart';
 import 'package:untitled/Pages/user.dart';
 import 'package:untitled/main.dart';
+
 void main() => runApp(const RegistrationPage());
 
 //
@@ -13,11 +14,12 @@ class RegistrationPage extends StatelessWidget {
     return MaterialApp(
       routes: {
         '/': (context) => const SignUpScreen(),
-        '/welcome': (context) =>  InitialPage(),
+        '/welcome': (context) => InitialPage(),
       },
     );
   }
 }
+
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
 
@@ -25,11 +27,13 @@ class SignUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Регистрация'),
+        title: Text('Регистрация', style: TextStyle(color: Colors.white)),
+        backgroundColor: Colors.deepOrangeAccent,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => InitialPage()));
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => InitialPage()));
           },
         ),
       ),
@@ -38,6 +42,7 @@ class SignUpScreen extends StatelessWidget {
         child: SizedBox(
           width: 400,
           child: Card(
+            color: Colors.white,
             child: SignUpForm(),
           ),
         ),
@@ -94,34 +99,71 @@ class _SignUpFormState extends State<SignUpForm> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('Регистрация', style: Theme.of(context).textTheme.headline4),
+          Text('Регистрация',
+              style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold)),
           AnimatedProgressIndicator(value: _formProgress),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
               controller: _firstNameTextController,
-              decoration: const InputDecoration(hintText: 'Имя'),
+              decoration: InputDecoration(
+                hintText: 'Имя',
+                hintStyle: TextStyle(color: Colors.black),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.deepOrangeAccent),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.deepOrangeAccent),
+                ),
+              ),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
               controller: _lastNameTextController,
-              decoration: const InputDecoration(hintText: 'Фамилия'),
+              decoration: InputDecoration(
+                hintText: 'Фамилия',
+                hintStyle: TextStyle(color: Colors.black),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.deepOrangeAccent),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.deepOrangeAccent),
+                ),
+              ),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
               controller: _usernameTextController,
-              decoration: const InputDecoration(hintText: 'Логин'),
+              decoration: InputDecoration(
+                hintText: 'Логин',
+                hintStyle: TextStyle(color: Colors.black),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.deepOrangeAccent),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.deepOrangeAccent),
+                ),
+              ),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
               controller: _passwordTextController,
-              decoration: const InputDecoration(hintText: 'Пароль'),
+              decoration: InputDecoration(
+                hintText: 'Пароль',
+                hintStyle: TextStyle(color: Colors.black),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.deepOrangeAccent),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.deepOrangeAccent),
+                ),
+              ),
             ),
           ),
           TextButton(
@@ -132,15 +174,14 @@ class _SignUpFormState extends State<SignUpForm> {
                         ? null
                         : Colors.white;
                   }),
-              backgroundColor: MaterialStateProperty.resolveWith(
-                      (Set<MaterialState> states) {
-                    return states.contains(MaterialState.disabled)
-                        ? null
-                        : Colors.green;
-                  }),
+              backgroundColor: MaterialStateProperty.resolveWith((Set<MaterialState> states) {
+                return states.contains(MaterialState.disabled)
+                    ? null
+                    : Colors.deepOrangeAccent;
+              }),
             ),
-            onPressed: _formProgress == 1.25 ? _showWelcomeScreen : null,
-            child: const Text('Зарегистрироваться'),
+            onPressed: _showWelcomeScreen,
+            child: Text('Зарегистрироваться'),
           ),
         ],
       ),
@@ -151,14 +192,11 @@ class _SignUpFormState extends State<SignUpForm> {
 class AnimatedProgressIndicator extends StatefulWidget {
   final double value;
 
-  const AnimatedProgressIndicator({super.key,
-    required this.value,
-  });
+  const AnimatedProgressIndicator({super.key, required this.value});
 
   @override
-  State<StatefulWidget> createState() {
-    return _AnimatedProgressIndicatorState();
-  }
+  _AnimatedProgressIndicatorState createState() =>
+      _AnimatedProgressIndicatorState();
 }
 
 class _AnimatedProgressIndicatorState extends State<AnimatedProgressIndicator>
@@ -178,15 +216,15 @@ class _AnimatedProgressIndicatorState extends State<AnimatedProgressIndicator>
     final colorTween = TweenSequence([
       TweenSequenceItem(
         tween: ColorTween(begin: Colors.red, end: Colors.orange),
-        weight: 1,
+        weight: 0.33,
       ),
       TweenSequenceItem(
         tween: ColorTween(begin: Colors.orange, end: Colors.yellow),
-        weight: 1,
+        weight: 0.33,
       ),
       TweenSequenceItem(
         tween: ColorTween(begin: Colors.yellow, end: Colors.green),
-        weight: 1,
+        weight: 0.33,
       ),
     ]);
 
